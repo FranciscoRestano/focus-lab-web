@@ -73,29 +73,39 @@ const videoIndices = Array.from({ length: project.videoCount }, (_, i) => i + 1)
 </Layout>
 
 <script>
-  const setupVideos = () => {
-    const videos = document.querySelectorAll('video');
-    
-    videos.forEach(video => {
-      // Intentar forzar la reproducción inmediata
-      const attemptPlay = () => {
-        video.play().catch(() => {
-          // Si falla (bloqueo de navegador), intentamos al primer toque o scroll
-          const recoverPlay = () => {
-            video.play();
-            document.removeEventListener('touchstart', recoverPlay);
-            document.removeEventListener('scroll', recoverPlay);
-          };
-          document.addEventListener('touchstart', recoverPlay);
-          document.addEventListener('scroll', recoverPlay);
-        });
+  const playVideo = (video) => {
+    // Si el video ya está reproduciéndose, no hacemos nada
+    if (!video.paused) return;
+
+    video.play().catch(() => {
+      // Si falla, esperamos a la primera interacción del usuario en la PC
+      const playOnInteraction = () => {
+        video.play();
+        ['click', 'keydown', 'scroll', 'touchstart'].forEach(event => 
+          document.removeEventListener(event, playOnInteraction)
+        );
       };
 
-      attemptPlay();
+      ['click', 'keydown', 'scroll', 'touchstart'].forEach(event => 
+        document.addEventListener(event, playOnInteraction, { once: true })
+      );
     });
   };
 
-  // Ejecutar tanto en carga inicial como en navegación de Astro
-  document.addEventListener('astro:page-load', setupVideos);
-  document.addEventListener('DOMContentLoaded', setupVideos);
+  const initVideos = () => {
+    const videos = document.querySelectorAll('video');
+    videos.forEach(video => {
+      // Si el video ya cargó lo suficiente, intentamos reproducir
+      if (video.readyState >= 2) {
+        playVideo(video);
+      } else {
+        // Si no, esperamos a que tenga datos suficientes
+        video.addEventListener('canplay', () => playVideo(video), { once: true });
+      }
+    });
+  };
+
+  // Gatillos para Astro y carga estándar
+  document.addEventListener('astro:page-load', initVideos);
+  document.addEventListener('DOMContentLoaded', initVideos);
 </script>
