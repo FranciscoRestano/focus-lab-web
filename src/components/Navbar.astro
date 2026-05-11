@@ -39,28 +39,28 @@ import logoAzul from '../assets/logo-azul.png';
   <a href="/#contacto" class="nav-link-mobile">Contacto</a>
 </div>
 
+
 <script>
-  const mobileMenu = document.getElementById('mobile-menu');
-  const openBtn = document.getElementById('open-btn'); // Asegurate que tu botón de abrir tenga este ID
-  const closeBtn = document.getElementById('close-btn');
-  const navLinks = document.querySelectorAll('.nav-link-mobile');
+  // Esta función se asegura de que el código corra CADA VEZ que la página carga
+  document.addEventListener('astro:page-load', () => {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const openBtn = document.getElementById('menu-btn');
+    const closeBtn = document.getElementById('close-btn');
+    const navLinks = document.querySelectorAll('.nav-link-mobile');
 
-  // Función para abrir
-  openBtn?.addEventListener('click', () => {
-    mobileMenu?.classList.remove('hidden');
-    document.body.style.overflow = 'hidden'; // Evita que la página haga scroll atrás
-  });
+    console.log("Botón encontrado:", openBtn); // Esto te va a decir en la consola si lo ve
 
-  // Función para cerrar
-  const closeMenu = () => {
-    mobileMenu?.classList.add('hidden');
-    document.body.style.overflow = 'auto'; // Devuelve el scroll
-  };
+    openBtn?.addEventListener('click', () => {
+      mobileMenu?.classList.remove('hidden');
+      mobileMenu?.classList.add('flex');
+    });
 
-  closeBtn?.addEventListener('click', closeMenu);
+    const closeMenu = () => {
+      mobileMenu?.classList.add('hidden');
+      mobileMenu?.classList.remove('flex');
+    };
 
-  // ESTO ARREGLA LOS LINKS: Cierra el menú apenas tocás una opción
-  navLinks.forEach(link => {
-    link.addEventListener('click', closeMenu);
+    closeBtn?.addEventListener('click', closeMenu);
+    navLinks.forEach(link => link.addEventListener('click', closeMenu));
   });
 </script>
