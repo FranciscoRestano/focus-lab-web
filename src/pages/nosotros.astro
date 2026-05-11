@@ -1,0 +1,54 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import thiagoPhoto from '../assets/thiago.jpeg';
+---
+
+<Layout>
+  <main class="min-h-screen pt-32 pb-16 px-6 bg-focus-white flex items-center antialiased">
+    <div class="max-w-6xl mx-auto w-full">
+      
+      <div class="flex flex-col md:flex-row gap-12 lg:gap-20 items-center">
+        
+        <div class="w-full md:w-1/3 max-w-[300px] md:max-w-[350px] mx-auto md:mx-0 shrink-0">
+          <div class="relative">
+            <div class="absolute -inset-4 border border-focus-blue/15 rounded-2xl"></div>
+            <Image 
+              src={thiagoPhoto} 
+              alt="Thiago Colliard" 
+              class="rounded-xl shadow-2xl grayscale-[20%] object-cover aspect-[3/4] relative z-10"
+            />
+          </div>
+        </div>
+
+        <div class="w-full md:w-2/3">
+          <span class="text-focus-blue font-bold tracking-[0.2em] uppercase text-[10px] mb-4 block">
+            Trayectoria & Visión
+          </span>
+          
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-focus-dark mb-8 leading-[1.15] tracking-tight">
+            Marketing estratégico por <br class="hidden lg:block"/> 
+            <span class="text-focus-blue whitespace-nowrap">Thiago Colliard</span>.
+          </h1>
+          
+          <div class="text-lg md:text-xl text-gray-600 space-y-6 font-light leading-relaxed">
+            <p>
+              Técnico en Marketing y estudiante de la FCG—UADER. Thiago lidera 
+              <span class="whitespace-nowrap font-semibold text-focus-dark underline decoration-focus-blue/30">Focus Lab</span> 
+              con una premisa clara: profesionalizar la comunicación digital.
+            </p>
+            
+            <p>
+              Desde 2024, impulsa marcas en <span class="whitespace-nowrap">Paraná y la región</span>, transformando perfiles sociales en activos de venta reales.
+            </p>
+
+            <p class="italic text-focus-dark/80 border-l-2 border-focus-blue pl-6 py-2 text-base md:text-lg">
+              "Trabajamos junto a creativos y profesionales que aseguran resultados de alto impacto profesional."
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</Layout>

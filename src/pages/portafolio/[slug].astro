@@ -1,0 +1,73 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { projects } from '../../data/portafolio.js';
+
+export async function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const videoIndices = Array.from({ length: project.videoCount }, (_, i) => i + 1);
+---
+
+<Layout>
+  <main class="py-24 md:py-32 px-6 bg-white min-h-screen text-focus-dark">
+    <div class="max-w-7xl mx-auto">
+      
+      <a href="/portafolio" class="text-focus-blue font-bold text-[10px] uppercase tracking-widest flex items-center mb-12 hover:-translate-x-2 transition-transform w-fit">
+        ← Volver al Portafolio
+      </a>
+
+      {project.type === 'reel' ? (
+      
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+          <div class="space-y-8">
+            <div>
+              <span class="text-focus-blue font-bold text-[10px] uppercase tracking-[0.2em] mb-2 block">{project.category}</span>
+              <h1 class="text-6xl md:text-8xl font-bold tracking-tighter leading-none">{project.client}</h1>
+            </div>
+            <p class="text-2xl text-gray-800 font-light leading-tight">{project.description}</p>
+            <div class="h-px bg-gray-200 w-20"></div>
+            <p class="text-base text-gray-500 leading-relaxed max-w-md">{project.technicalDetail}</p>
+          </div>
+
+          <div class="flex justify-center lg:justify-end">
+            <div class="w-full max-w-[400px] rounded-[3rem] overflow-hidden border-[8px] border-focus-dark shadow-2xl aspect-[9/16] bg-gray-900">
+              <video autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none">
+                <source src={`${project.folder}1.webm`} type="video/webm" />
+              </video>
+            </div>
+          </div>
+        </div>
+
+      ) : (
+        
+        <div class="space-y-16 md:space-y-24">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
+            <div>
+              <span class="text-focus-blue font-bold text-[10px] uppercase tracking-[0.2em] mb-2 block">{project.category}</span>
+              <h1 class="text-6xl md:text-8xl font-bold tracking-tighter leading-none">{project.client}</h1>
+            </div>
+            <div class="max-w-xl">
+              <p class="text-xl text-gray-500 font-light leading-relaxed">{project.technicalDetail}</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {videoIndices.map((index) => (
+              <div class="rounded-[2.5rem] overflow-hidden bg-gray-100 aspect-square relative border border-gray-100 shadow-sm">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none" preload="auto">
+                  <source src={`${project.folder}${index}.webm`} type="video/webm" />
+                </video>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+    </div>
+  </main>
+</Layout>

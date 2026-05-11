@@ -1,0 +1,161 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+import logoAlgaba from '../assets/logo-algaba.svg';
+import logoBlack from '../assets/logo-blacksentinel.png';
+import logoConexion from '../assets/logo-conexionsrl.svg';
+import logoDobleJ from '../assets/logo-doblej.svg';
+import logoIshop from '../assets/logo-ishop.svg';
+import logoSocAle from '../assets/logo-soc-ale.svg';
+import logoTercer from '../assets/logo-tercer-tiempo.svg';
+---
+
+<Layout>
+  <main class="min-h-screen flex items-center justify-center bg-focus-bg px-6 pt-20">
+    <div class="max-w-5xl text-center">
+      <h1 class="text-6xl md:text-8xl font-bold text-focus-dark leading-[1.1] tracking-tighter mb-8">
+        Convertimos redes sociales en <br class="hidden md:block" />
+        <span class="text-focus-blue">canales de venta</span>.
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-500 mb-12 max-w-2xl mx-auto font-light">
+        Estrategia, contenido y publicidad pensados para generar resultados reales.
+      </p>
+      <div class="flex flex-col md:flex-row gap-6 justify-center">
+        <a href="#contacto" class="bg-focus-blue text-white px-10 py-4 rounded-full font-bold text-lg hover:shadow-lg hover:shadow-focus-blue/20 transition-all">
+          Hablemos
+        </a>
+        <a href="#clientes" class="border-2 border-focus-dark text-focus-dark px-10 py-4 rounded-full font-bold text-lg hover:bg-focus-dark hover:text-white transition-all">
+          Ver clientes
+        </a>
+      </div>
+    </div>
+  </main>
+  
+<section id="clientes" class="py-12 px-6 bg-focus-bg border-t border-focus-dark/5 scroll-mt-24">
+  <div class="max-w-7xl mx-auto">
+    
+    <div class="text-center mb-10">
+      <h2 class="text-3xl md:text-5xl font-bold text-focus-dark tracking-tighter leading-tight">
+        Marcas que confían en <span class="text-focus-blue italic font-light">Focus Lab</span>.
+      </h2>
+      <p class="text-sm md:text-base text-focus-dark/50 mt-2 font-medium tracking-wide uppercase">
+        Estrategias digitales con resultados reales
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-10">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-end">
+        
+        <div class="flex flex-col items-center group">
+          <div class="h-32 flex items-center justify-center w-full">
+            <Image src={logoAlgaba} alt="Algaba Muebles" class="h-24 md:h-32 w-auto object-contain brightness-0 transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <p class="mt-4 text-[10px] tracking-[0.3em] uppercase font-bold text-focus-dark/70">Algaba Muebles</p>
+        </div>
+
+        <div class="flex flex-col items-center group">
+          <div class="h-32 flex items-center justify-center w-full">
+            <Image src={logoBlack} alt="Black Sentinel" class="h-24 md:h-28 w-auto object-contain contrast-[2] saturate-200 transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <p class="mt-4 text-[10px] tracking-[0.3em] uppercase font-bold text-focus-dark/70">Black Sentinel</p>
+        </div>
+
+        <div class="flex flex-col items-center group">
+          <div class="h-32 flex items-center justify-center w-full">
+            <Image src={logoIshop} alt="iShop Paraná" class="h-28 md:h-32 w-auto object-contain transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <p class="mt-4 text-[10px] tracking-[0.3em] uppercase font-bold text-focus-dark/70">iShop Parana</p>
+        </div>
+
+        <div class="flex flex-col items-center group">
+          <div class="h-32 flex items-center justify-center w-full">
+            <Image src={logoConexion} alt="Conexión SRL" class="h-24 md:h-32 w-auto object-contain transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <p class="mt-4 text-[10px] tracking-[0.3em] uppercase font-bold text-focus-dark/70">Conexión SRL</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-12 md:gap-24 items-end">
+        <div class="flex flex-col items-center group w-64">
+          <div class="h-32 flex items-center justify-center w-full">
+            <Image src={logoDobleJ} alt="Doble J Detail" class="h-28 md:h-36 w-auto object-contain transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <p class="mt-4 text-[10px] tracking-[0.3em] uppercase font-bold text-focus-dark/70">Doble J Detail</p>
+        </div>
+
+        <div class="flex flex-col items-center group w-64">
+          <div class="h-32 flex items-center justify-center w-full">
+            <Image src={logoSocAle} alt="Sociedad Alemana" class="h-28 md:h-36 w-auto object-contain transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <p class="mt-4 text-[10px] tracking-[0.3em] uppercase font-bold text-focus-dark/70">Soc. Alemana Parana</p>
+        </div>
+
+        <div class="flex flex-col items-center group w-64">
+          <div class="h-40 flex items-center justify-center w-full">
+            <Image src={logoTercer} alt="Complejo Tercer Tiempo" class="h-36 md:h-44 w-auto object-contain transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <p class="mt-4 text-[10px] tracking-[0.3em] uppercase font-bold text-focus-dark/70">Tercer Tiempo</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 
+
+  <section id="contacto" class="py-24 px-6 bg-focus-dark text-white antialiased">
+    <div class="max-w-4xl mx-auto text-center">
+      <span class="text-focus-blue font-bold tracking-[0.2em] uppercase text-xs mb-6 block">Hablemos de tu proyecto</span>
+      <h2 class="text-4xl md:text-7xl font-bold mb-10 leading-tight tracking-tighter">
+        Mejor comunicación, <br class="hidden md:block" /> 
+        <span class="text-focus-blue font-light italic">mejores resultados</span>.
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+  
+        <a href="https://wa.link/kz1tq1" target="_blank" rel="noopener noreferrer" 
+          class="md:col-span-2 flex flex-col items-center justify-center p-12 rounded-[2.5rem] bg-focus-blue text-white shadow-2xl shadow-focus-blue/20 hover:scale-[1.02] transition-all group relative overflow-hidden">
+    
+      <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+    
+      <span class="relative text-white/80 text-[10px] font-bold uppercase tracking-[0.3em] mb-4 group-hover:text-white transition-colors">
+      Contacto inmediato
+      </span>
+      <span class="relative text-3xl md:text-5xl font-bold uppercase tracking-tighter">
+      WhatsApp
+      </span>
+    
+      <div class="relative mt-6 flex items-center text-xs font-bold bg-white/20 px-6 py-2 rounded-full">
+        <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+        EN LÍNEA AHORA
+    </div>
+  </a>
+
+  <a href="mailto:thiagocolliard.socialmedia@gmail.com?subject=Consulta%20Focus%20Lab" 
+     class="md:col-span-1 flex flex-col items-center justify-center p-10 rounded-[2.5rem] bg-white/5 border border-white/10 hover:bg-white/[0.08] hover:border-focus-blue/50 transition-all group">
+    
+    <span class="text-focus-blue text-[10px] font-bold uppercase tracking-widest mb-2 opacity-70 group-hover:opacity-100">
+      Formal
+    </span>
+    <span class="text-xl font-bold uppercase tracking-tight text-white/90">
+      Email
+    </span>
+    
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mt-4 text-white/20 group-hover:text-focus-blue transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    </svg>
+  </a>
+
+</div>
+
+      <div class="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8 text-focus-bg/50 text-[11px] tracking-[0.4em] uppercase font-bold">
+        <p>© 2026 FOCUS LAB — ESTRATEGIA DIGITAL</p>
+        <div class="flex gap-12 items-center">
+          <a href="https://www.instagram.com/focuslab.marketing/" target="_blank" rel="noopener noreferrer" class="text-focus-bg hover:text-focus-blue transition-colors">INSTAGRAM</a>
+          <span class="text-focus-bg/80 border-l border-white/20 pl-8">PARANÁ, ER</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</Layout>

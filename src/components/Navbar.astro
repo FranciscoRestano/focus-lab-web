@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+// Verificá que el nombre del archivo en assets sea exactamente logo-dark.png
+import logoAzul from '../assets/logo-azul.png';
+---
+
+<nav class="fixed w-full z-50 bg-focus-bg/80 backdrop-blur-md border-b border-focus-dark/10">
+  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <a href="/" class="transition-opacity hover:opacity-80">
+      <Image src={logoAzul} alt="Focus Lab Logo" class="h-10 w-auto" />
+    </a>
+
+    <div class="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest text-focus-dark">
+      <a href="/servicios" class="hover:text-focus-blue transition-colors">Servicios</a>
+      <a href="/portafolio" class="hover:text-focus-blue transition-colors">Portafolio</a>
+      <a href="/nosotros" class="hover:text-focus-blue transition-colors">Nosotros</a>
+      <a href="/#contacto" class="hover:text-focus-blue transition-colors">Contacto</a>
+    </div>
+
+    <a href="https://wa.link/kz1tq1" target="_blank" rel="noopener noreferrer" class="hidden md:block bg-focus-dark text-white px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-focus-blue transition-all">
+      Contactanos
+    </a>
+
+    <button id="menu-btn" class="md:hidden text-focus-dark">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<div id="mobile-menu" class="hidden fixed inset-0 bg-focus-bg z-40 flex flex-col items-center justify-center gap-8 text-2xl font-bold uppercase tracking-widest text-focus-dark">
+  <button id="close-btn" class="absolute top-6 right-6 text-sm">Cerrar</button>
+  <a href="/#servicios" class="nav-link">Servicios</a>
+  <a href="/#portfolio" class="nav-link">Portafolio</a>
+  <a href="/nosotros" class="nav-link">Nosotros</a>
+  <a href="/#contacto" class="nav-link">Contacto</a>
+</div>
+
+<script>
+  const menuBtn = document.getElementById('menu-btn')!;
+  const closeBtn = document.getElementById('close-btn')!;
+  const mobileMenu = document.getElementById('mobile-menu')!;
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const toggleMenu = () => mobileMenu.classList.toggle('hidden');
+
+  menuBtn.addEventListener('click', toggleMenu);
+  closeBtn.addEventListener('click', toggleMenu);
+  navLinks.forEach(link => link.addEventListener('click', toggleMenu));
+</script>
