@@ -36,7 +36,7 @@ const videoIndices = Array.from({ length: project.videoCount }, (_, i) => i + 1)
 
           <div class="flex justify-center lg:justify-end">
             <div class="w-full max-w-[400px] rounded-[3rem] overflow-hidden border-[8px] border-focus-dark shadow-2xl aspect-[9/16] bg-gray-900">
-              <video autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none">
+              <video autoplay loop muted playsinline preload="auto" class="w-full h-full object-cover pointer-events-none">
                 <source src={`${project.folder}1.webm`} type="video/webm" />
               </video>
             </div>
@@ -59,7 +59,7 @@ const videoIndices = Array.from({ length: project.videoCount }, (_, i) => i + 1)
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {videoIndices.map((index) => (
               <div class="rounded-[2.5rem] overflow-hidden bg-gray-100 aspect-square relative border border-gray-100 shadow-sm">
-                <video autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none" preload="auto">
+                <video autoplay loop muted playsinline preload="auto" class="w-full h-full object-cover pointer-events-none">
                   <source src={`${project.folder}${index}.webm`} type="video/webm" />
                 </video>
               </div>
@@ -71,3 +71,31 @@ const videoIndices = Array.from({ length: project.videoCount }, (_, i) => i + 1)
     </div>
   </main>
 </Layout>
+
+<script>
+  const setupVideos = () => {
+    const videos = document.querySelectorAll('video');
+    
+    videos.forEach(video => {
+      // Intentar forzar la reproducción inmediata
+      const attemptPlay = () => {
+        video.play().catch(() => {
+          // Si falla (bloqueo de navegador), intentamos al primer toque o scroll
+          const recoverPlay = () => {
+            video.play();
+            document.removeEventListener('touchstart', recoverPlay);
+            document.removeEventListener('scroll', recoverPlay);
+          };
+          document.addEventListener('touchstart', recoverPlay);
+          document.addEventListener('scroll', recoverPlay);
+        });
+      };
+
+      attemptPlay();
+    });
+  };
+
+  // Ejecutar tanto en carga inicial como en navegación de Astro
+  document.addEventListener('astro:page-load', setupVideos);
+  document.addEventListener('DOMContentLoaded', setupVideos);
+</script>
