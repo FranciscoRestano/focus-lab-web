@@ -33,34 +33,51 @@ import logoAzul from '../assets/logo-azul.png';
   <button id="close-btn" class="absolute top-8 right-8 text-xs tracking-widest uppercase border border-gray-200 px-4 py-2 rounded-full">
     Cerrar ×
   </button>
-  <a href="/#servicios" class="nav-link-mobile">Servicios</a>
-  <a href="/#portfolio" class="nav-link-mobile">Portafolio</a>
+  <a href="/servicios/" class="nav-link-mobile">Servicios</a>
+  <a href="/portafolio/" class="nav-link-mobile">Portafolio</a>
   <a href="/nosotros" class="nav-link-mobile">Nosotros</a>
   <a href="/#contacto" class="nav-link-mobile">Contacto</a>
 </div>
 
-
 <script>
-  // Esta función se asegura de que el código corra CADA VEZ que la página carga
-  document.addEventListener('astro:page-load', () => {
+  const initMenu = () => {
     const mobileMenu = document.getElementById('mobile-menu');
     const openBtn = document.getElementById('menu-btn');
     const closeBtn = document.getElementById('close-btn');
     const navLinks = document.querySelectorAll('.nav-link-mobile');
 
-    console.log("Botón encontrado:", openBtn); // Esto te va a decir en la consola si lo ve
+    if (!openBtn || !mobileMenu) return;
 
-    openBtn?.addEventListener('click', () => {
-      mobileMenu?.classList.remove('hidden');
-      mobileMenu?.classList.add('flex');
-    });
-
-    const closeMenu = () => {
-      mobileMenu?.classList.add('hidden');
-      mobileMenu?.classList.remove('flex');
+    const openMenu = () => {
+      mobileMenu.classList.remove('hidden');
+      mobileMenu.classList.add('flex');
+      document.body.style.overflow = 'hidden';
     };
 
+    const closeMenu = () => {
+      mobileMenu.classList.add('hidden');
+      mobileMenu.classList.remove('flex');
+      document.body.style.overflow = 'auto';
+    };
+
+    openBtn.addEventListener('click', openMenu);
     closeBtn?.addEventListener('click', closeMenu);
-    navLinks.forEach(link => link.addEventListener('click', closeMenu));
-  });
+    
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        
+        // Si es un ancla (como #contacto), cerramos el menú manual
+        if (href && href.includes('#')) {
+          closeMenu();
+        } 
+        // Si es una página nueva, NO cerramos el menú por JS, 
+        // dejamos que el navegador navegue tranquilo. 
+        // Al cargar la nueva página, el menú ya estará cerrado por defecto.
+      });
+    });
+  };
+
+  document.addEventListener('astro:page-load', initMenu);
+  document.addEventListener('DOMContentLoaded', initMenu);
 </script>
