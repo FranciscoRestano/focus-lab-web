@@ -29,23 +29,38 @@ import logoAzul from '../assets/logo-azul.png';
   </div>
 </nav>
 
-<div id="mobile-menu" class="hidden fixed inset-0 bg-focus-bg z-40 flex flex-col items-center justify-center gap-8 text-2xl font-bold uppercase tracking-widest text-focus-dark">
-  <button id="close-btn" class="absolute top-6 right-6 text-sm">Cerrar</button>
-  <a href="/#servicios" class="nav-link">Servicios</a>
-  <a href="/#portfolio" class="nav-link">Portafolio</a>
-  <a href="/nosotros" class="nav-link">Nosotros</a>
-  <a href="/#contacto" class="nav-link">Contacto</a>
+<div id="mobile-menu" class="hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-center gap-10 text-3xl font-bold uppercase tracking-[0.2em] text-focus-dark">
+  <button id="close-btn" class="absolute top-8 right-8 text-xs tracking-widest uppercase border border-gray-200 px-4 py-2 rounded-full">
+    Cerrar ×
+  </button>
+  <a href="/#servicios" class="nav-link-mobile">Servicios</a>
+  <a href="/#portfolio" class="nav-link-mobile">Portafolio</a>
+  <a href="/nosotros" class="nav-link-mobile">Nosotros</a>
+  <a href="/#contacto" class="nav-link-mobile">Contacto</a>
 </div>
 
 <script>
-  const menuBtn = document.getElementById('menu-btn')!;
-  const closeBtn = document.getElementById('close-btn')!;
-  const mobileMenu = document.getElementById('mobile-menu')!;
-  const navLinks = document.querySelectorAll('.nav-link');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const openBtn = document.getElementById('open-btn'); // Asegurate que tu botón de abrir tenga este ID
+  const closeBtn = document.getElementById('close-btn');
+  const navLinks = document.querySelectorAll('.nav-link-mobile');
 
-  const toggleMenu = () => mobileMenu.classList.toggle('hidden');
+  // Función para abrir
+  openBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden'; // Evita que la página haga scroll atrás
+  });
 
-  menuBtn.addEventListener('click', toggleMenu);
-  closeBtn.addEventListener('click', toggleMenu);
-  navLinks.forEach(link => link.addEventListener('click', toggleMenu));
+  // Función para cerrar
+  const closeMenu = () => {
+    mobileMenu?.classList.add('hidden');
+    document.body.style.overflow = 'auto'; // Devuelve el scroll
+  };
+
+  closeBtn?.addEventListener('click', closeMenu);
+
+  // ESTO ARREGLA LOS LINKS: Cierra el menú apenas tocás una opción
+  navLinks.forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
 </script>
