@@ -16,27 +16,61 @@ import { projects } from '../../data/portafolio.js';
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project) => (
-         <a href={`/portafolio/${project.slug}`} class="group relative block aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-gray-100 transition-all duration-500 hover:shadow-2xl hover:shadow-focus-blue/20">
+         <a href={`/portafolio/${project.slug}/`} class="group relative block aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-gray-100 transition-all duration-500 hover:shadow-2xl hover:shadow-focus-blue/20">
   
-  {/* Eliminamos el div de la imagen rota y dejamos el video como base */}
-  <video 
-    src={`${project.folder}1.webm`}
-    autoplay 
-    muted 
-    loop 
-    playsinline
-    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-  ></video>
+          <video 
+            src={`${project.folder}1.webm`}
+            autoplay 
+            muted 
+            loop 
+            playsinline
+            preload="auto"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          ></video>
 
-  {/* Capa de diseño para legibilidad de texto */}
-  <div class="absolute inset-0 z-20 flex flex-col justify-end p-10 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 text-white">
-    <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-focus-blue mb-2">{project.category}</span>
-    <h3 class="text-3xl font-bold uppercase tracking-tighter mb-4">{project.client}</h3>
-    <p class="text-sm font-light text-white/70 line-clamp-2">{project.description}</p>
-  </div>
-</a>
+          <div class="absolute inset-0 z-20 flex flex-col justify-end p-10 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 text-white">
+            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-focus-blue mb-2">{project.category}</span>
+            <h3 class="text-3xl font-bold uppercase tracking-tighter mb-4">{project.client}</h3>
+            <p class="text-sm font-light text-white/70 line-clamp-2">{project.description}</p>
+          </div>
+        </a>
         ))}
       </div>
     </div>
   </main>
 </Layout>
+
+<script>
+  const playAllVideos = () => {
+    const videos = document.querySelectorAll('video');
+    videos.forEach(video => {
+      // Forzamos el muteado para cumplir con las políticas de autoplay de Chrome/Edge
+      video.muted = true;
+      
+      const attemptPlay = () => {
+        video.play().catch(() => {
+          // Si falla, agregamos listeners para interacción del usuario
+          const recover = () => {
+            video.play();
+            window.removeEventListener('scroll', recover);
+            window.removeEventListener('mousemove', recover);
+            window.removeEventListener('touchstart', recover);
+          };
+          window.addEventListener('scroll', recover, { once: true });
+          window.addEventListener('mousemove', recover, { once: true });
+          window.addEventListener('touchstart', recover, { once: true });
+        });
+      };
+
+      if (video.readyState >= 2) {
+        attemptPlay();
+      } else {
+        video.addEventListener('canplay', attemptPlay, { once: true });
+      }
+    });
+  };
+
+  // Escucha de eventos de Astro y del Navegador
+  document.addEventListener('astro:page-load', playAllVideos);
+  document.addEventListener('DOMContentLoaded', playAllVideos);
+</script>
