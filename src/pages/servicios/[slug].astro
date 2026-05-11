@@ -2,7 +2,6 @@
 import Layout from '../../layouts/Layout.astro';
 import { services } from '../../data/services.js';
 
-// Esto es lo que le dice a Astro cuántas páginas crear
 export async function getStaticPaths() {
   return services.map((service) => ({
     params: { slug: service.slug },
@@ -11,48 +10,27 @@ export async function getStaticPaths() {
 }
 
 const { service } = Astro.props;
+const phone = "549343XXXXXXX"; // Número de Thiago
 ---
 
 <Layout>
-  <main class="py-32 px-6 bg-white min-h-screen">
+  <main class="py-24 md:py-32 px-6 bg-white min-h-screen text-focus-dark">
     <div class="max-w-4xl mx-auto">
-      <a href="/servicios" class="text-focus-blue font-bold text-[10px] uppercase tracking-widest flex items-center mb-12 hover:-translate-x-2 transition-transform">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-        Volver a servicios
-      </a>
+      <span class="text-focus-blue font-bold text-[10px] uppercase tracking-widest mb-4 block">Servicio 0{service.id}</span>
+      <h1 class="text-6xl md:text-8xl font-bold tracking-tighter leading-none mb-12">{service.title}</h1>
+      
+      <div class="prose prose-xl text-gray-800 font-light leading-relaxed mb-16">
+        <p>{service.content}</p>
+      </div>
 
-      <span class="text-focus-blue font-bold tracking-[0.2em] uppercase text-[10px] mb-4 block">0{service.id} — Detalle del Servicio</span>
-      <h1 class="text-5xl md:text-7xl font-bold text-focus-dark tracking-tighter mb-12">
-        {service.title}
-      </h1>
-
-      <div class="grid md:grid-cols-3 gap-16">
-        <div class="md:col-span-2">
-          <p class="text-xl text-gray-600 leading-relaxed font-light mb-8">
-            {service.content}
-          </p>
-          <div class="p-8 bg-focus-bg/30 rounded-3xl border border-gray-100">
-            <p class="text-sm text-focus-dark/70 italic">
-              Este servicio se adapta a las necesidades reales de cada marca, priorizando resultados medibles y un diseño profesional.
-            </p>
-          </div>
-        </div>
-
-        <div class="md:col-span-1">
-          <h4 class="font-bold text-focus-dark uppercase tracking-widest text-[10px] mb-6 pb-4 border-b border-gray-100">
-            Qué incluye
-          </h4>
-          <ul class="space-y-4">
-            {service.features.map((feature) => (
-              <li class="flex items-start text-[10px] font-bold uppercase tracking-widest text-focus-dark/60">
-                <span class="w-1.5 h-1.5 bg-focus-blue rounded-full mr-3 mt-1 shrink-0"></span>
-                {feature}
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div class="pt-12 border-t border-gray-100">
+        <a 
+          href={`https://wa.me/${phone}?text=${encodeURIComponent(`Hola Focus Lab! Quiero más información sobre el servicio ${service.title}`)}`}
+          target="_blank"
+          class="inline-block bg-focus-dark text-white px-10 py-5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-focus-blue transition-all shadow-lg active:scale-95"
+        >
+          Consultar por WhatsApp
+        </a>
       </div>
     </div>
   </main>

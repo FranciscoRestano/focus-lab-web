@@ -1,0 +1,36 @@
+---
+import { projects } from '../data/portafolio.js';
+const featured = projects.slice(0, 3);
+---
+
+<section id="portfolio" class="py-24 md:py-32 px-6 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-end gap-8">
+      <div>
+        <span class="text-focus-blue font-bold tracking-[0.2em] uppercase text-[10px] mb-4 block">Casos de Éxito</span>
+        <h2 class="text-5xl md:text-8xl font-bold text-focus-dark tracking-tighter leading-none">
+          PORT<span class="italic font-light text-focus-blue">FOLIO</span>
+        </h2>
+      </div>
+      <a href="/portafolio" class="bg-focus-dark text-white px-8 py-4 rounded-full font-bold uppercase text-[10px] tracking-widest hover:bg-focus-blue transition-all">
+        Ver todos los trabajos
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {featured.map((project) => (
+        <a href={`/portafolio/${project.slug}/`} class="group relative block aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-gray-100 transition-all duration-500 hover:shadow-2xl">
+          <video 
+            src={`${project.folder}1.webm`}
+            autoplay muted loop playsinline preload="auto"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          ></video>
+          <div class="absolute inset-0 z-20 flex flex-col justify-end p-10 bg-gradient-to-t from-black/80 via-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity">
+            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-focus-blue mb-2">{project.category}</span>
+            <h3 class="text-3xl font-bold uppercase tracking-tighter">{project.client}</h3>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

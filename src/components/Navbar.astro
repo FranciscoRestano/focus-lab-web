@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-// Verificá que el nombre del archivo en assets sea exactamente logo-dark.png
 import logoAzul from '../assets/logo-azul.png';
 ---
 
@@ -11,8 +10,8 @@ import logoAzul from '../assets/logo-azul.png';
     </a>
 
     <div class="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest text-focus-dark">
-      <a href="/servicios" class="hover:text-focus-blue transition-colors">Servicios</a>
-      <a href="/portafolio" class="hover:text-focus-blue transition-colors">Portafolio</a>
+      <a href="/#servicios" class="hover:text-focus-blue transition-colors">Servicios</a>
+      <a href="/#portfolio" class="hover:text-focus-blue transition-colors">Portafolio</a>
       <a href="/nosotros" class="hover:text-focus-blue transition-colors">Nosotros</a>
       <a href="/#contacto" class="hover:text-focus-blue transition-colors">Contacto</a>
     </div>
@@ -33,13 +32,14 @@ import logoAzul from '../assets/logo-azul.png';
   <button id="close-btn" class="absolute top-8 right-8 text-xs tracking-widest uppercase border border-gray-200 px-4 py-2 rounded-full">
     Cerrar ×
   </button>
-  <a href="/servicios/" class="nav-link-mobile">Servicios</a>
-  <a href="/portafolio/" class="nav-link-mobile">Portafolio</a>
+  <a href="/#servicios" class="nav-link-mobile">Servicios</a>
+  <a href="/#portfolio" class="nav-link-mobile">Portafolio</a>
   <a href="/nosotros" class="nav-link-mobile">Nosotros</a>
   <a href="/#contacto" class="nav-link-mobile">Contacto</a>
 </div>
 
 <script>
+  // Script robusto que previene duplicados en Astro ClientRouter
   const initMenu = () => {
     const mobileMenu = document.getElementById('mobile-menu');
     const openBtn = document.getElementById('menu-btn');
@@ -47,6 +47,13 @@ import logoAzul from '../assets/logo-azul.png';
     const navLinks = document.querySelectorAll('.nav-link-mobile');
 
     if (!openBtn || !mobileMenu) return;
+
+    // Lógica para prevenir duplicados: removemos listeners viejos si existen
+    openBtn.replaceWith(openBtn.cloneNode(true));
+    closeBtn?.replaceWith(closeBtn?.cloneNode(true) || "");
+
+    const newOpenBtn = document.getElementById('menu-btn');
+    const newCloseBtn = document.getElementById('close-btn');
 
     const openMenu = () => {
       mobileMenu.classList.remove('hidden');
@@ -60,24 +67,23 @@ import logoAzul from '../assets/logo-azul.png';
       document.body.style.overflow = 'auto';
     };
 
-    openBtn.addEventListener('click', openMenu);
-    closeBtn?.addEventListener('click', closeMenu);
+    newOpenBtn?.addEventListener('click', openMenu);
+    newCloseBtn?.addEventListener('click', closeMenu);
     
     navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         const href = link.getAttribute('href');
-        
-        // Si es un ancla (como #contacto), cerramos el menú manual
+        // Si es un ancla interna de la One-Page, cerramos el menú manual
         if (href && href.includes('#')) {
           closeMenu();
         } 
-        // Si es una página nueva, NO cerramos el menú por JS, 
-        // dejamos que el navegador navegue tranquilo. 
-        // Al cargar la nueva página, el menú ya estará cerrado por defecto.
+        // Si es una página nueva (como /nosotros), el menú se cierra solo al recargar
       });
     });
   };
 
+  // Astro dispara este evento después de la transición de View Transitions
   document.addEventListener('astro:page-load', initMenu);
+  // Y este para la primera carga
   document.addEventListener('DOMContentLoaded', initMenu);
 </script>

@@ -18,5 +18,39 @@ import '../styles/global.css';
   <body class="bg-focus-bg text-focus-dark font-sans antialiased">
     <Navbar />
     <slot />
+    <script>
+  // Función centralizada para despertar videos
+  const setupGlobalVideos = () => {
+    const videos = document.querySelectorAll('video');
+    
+    videos.forEach(video => {
+      // Forzamos propiedades críticas por código
+      video.muted = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+
+      const playPromise = video.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Si el navegador bloquea el autoplay (común en PC y ahorro de datos)
+          const startVideo = () => {
+            video.play();
+            ['touchstart', 'scroll', 'mousemove'].forEach(ev => 
+              window.removeEventListener(ev, startVideo)
+            );
+          };
+          ['touchstart', 'scroll', 'mousemove'].forEach(ev => 
+            window.addEventListener(ev, startVideo, { once: true })
+          );
+        });
+      }
+    });
+  };
+
+  // Gatillos de ejecución
+  document.addEventListener('astro:page-load', setupGlobalVideos);
+  document.addEventListener('DOMContentLoaded', setupGlobalVideos);
+</script>
   </body>
 </html>
