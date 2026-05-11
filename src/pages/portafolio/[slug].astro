@@ -73,39 +73,47 @@ const videoIndices = Array.from({ length: project.videoCount }, (_, i) => i + 1)
 </Layout>
 
 <script>
-  const playVideo = (video) => {
-    // Si el video ya está reproduciéndose, no hacemos nada
-    if (!video.paused) return;
+  const handleVideos = () => {
+    const videos = document.querySelectorAll('video');
+    
+    videos.forEach(video => {
+      // Forzamos el estado inicial para asegurar el autoplay en escritorio
+      video.muted = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
 
-    video.play().catch(() => {
-      // Si falla, esperamos a la primera interacción del usuario en la PC
-      const playOnInteraction = () => {
-        video.play();
-        ['click', 'keydown', 'scroll', 'touchstart'].forEach(event => 
-          document.removeEventListener(event, playOnInteraction)
-        );
+      const playVideo = () => {
+        const attempt = video.play();
+        if (attempt !== undefined) {
+          attempt.catch(() => {
+            // Si el navegador bloquea, esperamos a que el usuario mueva el mouse o haga scroll
+            const playOnAction = () => {
+              video.play();
+              window.removeEventListener('mousemove', playOnAction);
+              window.removeEventListener('scroll', playOnAction);
+            };
+            window.addEventListener('mousemove', playOnAction, { once: true });
+            window.addEventListener('scroll', playOnAction, { once: true });
+          });
+        }
       };
 
-      ['click', 'keydown', 'scroll', 'touchstart'].forEach(event => 
-        document.addEventListener(event, playOnInteraction, { once: true })
-      );
-    });
-  };
-
-  const initVideos = () => {
-    const videos = document.querySelectorAll('video');
-    videos.forEach(video => {
-      // Si el video ya cargó lo suficiente, intentamos reproducir
-      if (video.readyState >= 2) {
-        playVideo(video);
+      // Si el video ya está listo, play. Si no, esperamos al evento canplay
+      if (video.readyState >= 3) {
+        playVideo();
       } else {
-        // Si no, esperamos a que tenga datos suficientes
-        video.addEventListener('canplay', () => playVideo(video), { once: true });
+        video.addEventListener('canplay', playVideo, { once: true });
+      }
+      
+      // Fix específico para PC: recargar el recurso si el src se quedó en blanco
+      if (video.networkState === 3 || video.currentSrc === "") {
+        video.load();
       }
     });
   };
 
-  // Gatillos para Astro y carga estándar
-  document.addEventListener('astro:page-load', initVideos);
-  document.addEventListener('DOMContentLoaded', initVideos);
+  // Astro dispara este evento después de cambiar el contenido de la página
+  document.addEventListener('astro:page-load', handleVideos);
+  // Por si la entrada es directa (refresh o link compartido)
+  document.addEventListener('DOMContentLoaded', handleVideos);
 </script>
