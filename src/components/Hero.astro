@@ -1,21 +1,22 @@
 ---
 // src/components/Hero.astro
+const phone = "5493434666821";
 ---
 
-<section class="min-h-screen pt-28 md:pt-40 pb-20 flex flex-col items-center justify-start text-center bg-white relative overflow-hidden">
+<section class="min-h-[85vh] pt-28 md:pt-40 pb-10 flex flex-col items-center justify-start text-center bg-white relative overflow-hidden">
   
   <div class="max-w-7xl mx-auto px-6 z-10">
     
-    <h1 class="text-5xl md:text-7xl font-bold text-focus-dark tracking-tighter leading-tight mb-6">
+    <h1 class="text-5xl md:text-7xl font-bold text-focus-dark tracking-tighter leading-tight mb-4">
       Convertimos redes <br class="hidden md:block"/> sociales en <br class="hidden md:block"/>
       <span class="text-focus-blue italic font-light">canales de venta.</span>
     </h1>
     
-    <p class="text-lg md:text-xl text-gray-500 font-medium max-w-xl mx-auto mb-12 leading-relaxed">
+    <p class="text-lg md:text-xl text-gray-500 font-medium max-w-xl mx-auto mb-10 leading-relaxed">
       Estrategia, contenido y publicidad pensados para generar resultados reales.
     </p>
 
-    <div class="flex flex-col items-center gap-10 mb-12">
+    <div class="flex flex-col items-center gap-8 mb-10">
       
       <a href="#portfolio" class="bg-focus-dark text-white px-14 py-5 rounded-full font-bold uppercase text-xs tracking-widest hover:scale-105 transition-transform shadow-xl shadow-focus-dark/10">
         Ver Portafolio
@@ -32,7 +33,7 @@
     </div>
 
    <a 
-      href={`https://wa.me/${5493434666821}?text=${encodeURIComponent('Hola Focus Lab! Quiero hablar sobre un proyecto.')}`}
+      href={`https://wa.me/${phone}?text=${encodeURIComponent('Hola Focus Lab! Quiero hablar sobre un proyecto.')}`}
       target="_blank"
       rel="noopener noreferrer"
       class="text-focus-blue font-bold uppercase text-[10px] tracking-[0.2em] hover:opacity-80 transition-opacity"
