@@ -3,16 +3,18 @@ import { projects } from '../data/portafolio.js';
 const featured = projects.slice(0, 3);
 ---
 
-<section id="portfolio" class="py-24 md:py-32 px-6 bg-white">
+<section id="portfolio" class="py-16 md:py-32 px-6 bg-white">
   <div class="max-w-7xl mx-auto">
-    <div class="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-end gap-8">
+    
+    <div class="mb-12 md:mb-24 flex flex-col md:flex-row justify-between items-center md:items-end gap-10 text-center md:text-left">
       <div>
         <span class="text-focus-blue font-bold tracking-[0.2em] uppercase text-[10px] mb-4 block">Casos de Éxito</span>
         <h2 class="text-5xl md:text-8xl font-bold text-focus-dark tracking-tighter leading-none">
           PORT<span class="italic font-light text-focus-blue">FOLIO</span>
         </h2>
       </div>
-      <a href="/portafolio" class="bg-focus-dark text-white px-8 py-4 rounded-full font-bold uppercase text-[10px] tracking-widest hover:bg-focus-blue transition-all">
+      
+      <a href="/portafolio" class="bg-focus-dark text-white px-10 py-4 rounded-full font-bold uppercase text-[10px] tracking-widest hover:bg-focus-blue transition-all shadow-lg active:scale-95">
         Ver todos los trabajos
       </a>
     </div>
