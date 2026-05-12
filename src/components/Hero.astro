@@ -1,37 +1,44 @@
-<section class="min-h-[95vh] flex flex-col items-center justify-center text-center px-6 bg-white overflow-hidden">
-  <div class="max-w-6xl mx-auto space-y-12">
+---
+// src/components/Hero.astro
+---
+
+<section class="min-h-screen pt-48 pb-20 flex flex-col items-center justify-start text-center bg-white relative overflow-hidden">
+  
+  <div class="max-w-7xl mx-auto px-6 z-10">
     
-    <h1 class="text-6xl md:text-[120px] font-bold text-focus-dark tracking-tighter leading-[0.9] md:leading-[0.85] mb-4">
-      Convertimos redes <br class="hidden md:block" /> sociales en <br class="hidden md:block" />
+    <h1 class="text-5xl md:text-7xl font-bold text-focus-dark tracking-tighter leading-tight mb-8">
+      Convertimos redes <br class="hidden md:block"/> sociales en <br class="hidden md:block"/>
       <span class="text-focus-blue italic font-light">canales de venta.</span>
     </h1>
     
-    <p class="text-gray-500 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed">
+    <p class="text-xl md:text-2xl text-gray-500 font-medium max-w-xl mx-auto mb-20 leading-relaxed">
       Estrategia, contenido y publicidad pensados para generar resultados reales.
     </p>
 
-    <div class="flex flex-col items-center gap-8 pt-6 w-full max-w-2xl mx-auto">
+    <div class="flex flex-col items-center gap-14 mb-16">
       
-      <a href="/#portfolio" class="w-full md:w-auto bg-focus-dark text-white px-16 py-6 rounded-full font-bold uppercase text-sm tracking-[0.2em] hover:bg-focus-blue transition-all shadow-2xl active:scale-95">
+      <a href="#portafolio" class="bg-focus-dark text-white px-14 py-6 rounded-full font-bold uppercase text-xs tracking-widest hover:scale-105 transition-transform shadow-xl shadow-focus-dark/10">
         Ver Portafolio
       </a>
       
-      <div class="flex flex-col md:flex-row items-center justify-center gap-4 w-full">
-        <a href="/#servicios" class="w-full md:w-auto border-2 border-focus-dark/5 text-focus-dark px-10 py-4 rounded-full font-bold uppercase text-xs tracking-widest hover:border-focus-blue hover:text-focus-blue transition-all text-center">
+      <div class="flex flex-col md:flex-row items-center gap-6">
+        <a href="#servicios" class="bg-[#eef8f9] text-focus-blue px-10 py-5 rounded-full font-bold uppercase text-[10px] tracking-widest border border-focus-blue/10 hover:bg-white hover:border-focus-blue transition-colors">
           Nuestros Servicios
         </a>
-        <a href="/#clientes" class="w-full md:w-auto border-2 border-focus-dark/5 text-focus-dark px-10 py-4 rounded-full font-bold uppercase text-xs tracking-widest hover:border-focus-blue hover:text-focus-blue transition-all text-center">
+        <a href="#clientes" class="bg-[#eef8f9] text-focus-blue px-10 py-5 rounded-full font-bold uppercase text-[10px] tracking-widest border border-focus-blue/10 hover:bg-white hover:border-focus-blue transition-colors">
           Clientes Focus
         </a>
       </div>
-
-      <a href="/#contacto" class="group flex items-center text-focus-blue font-bold uppercase text-xs tracking-[0.3em] hover:text-focus-dark transition-colors">
-        Hablemos de tu proyecto
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-        </svg>
-      </a>
-
     </div>
+
+    <a href="#contacto" class="text-focus-blue font-bold uppercase text-[10px] tracking-[0.2em] hover:opacity-80 transition-opacity">
+      Hablemos de tu proyecto —>
+    </a>
+
+  </div>
+
+  <div class="absolute inset-0 z-0">
+    <div class="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-focus-blue/3 blur-[120px]"></div>
+    <div class="absolute top-[10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-focus-blue/2 blur-[100px]"></div>
   </div>
 </section>

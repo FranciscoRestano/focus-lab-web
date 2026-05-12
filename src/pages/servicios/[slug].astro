@@ -46,13 +46,14 @@ const phone = "5493434666821";
 
           <div class="pt-4">
             <a 
-              href={`https://wa.me/${phone}?text=${encodeURIComponent(`Hola Focus Lab! Quiero más información sobre el servicio ${service.title}`)}`}
+              href={`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(`Hola Focus Lab! Quiero más información sobre el servicio ${service.title}`)}`}
               target="_blank"
+              rel="noopener noreferrer"
               class="inline-block bg-focus-dark text-white px-12 py-5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-focus-blue transition-all shadow-xl active:scale-95"
-            >
+              >
               Consultar por WhatsApp
             </a>
-          </div>
+</div>
         </div>
 
         <div class="space-y-8">
