@@ -20,16 +20,18 @@ const clients = [
 ];
 ---
 
-<section id="clientes" class="mt-12 md:mt-32 py-20 bg-white scroll-mt-24">
+<section id="clientes" class="mt-12 md:mt-32 py-16 md:py-20 bg-white scroll-mt-24">
   <div class="max-w-7xl mx-auto px-6">
-    <span class="text-focus-blue font-bold tracking-[0.2em] uppercase text-[10px] mb-24 block text-center">
+    <span class="text-focus-blue font-bold tracking-[0.2em] uppercase text-[10px] mb-16 md:mb-24 block text-center">
       Dirección estratégica para marcas líderes
     </span>
     
-    <div class="flex flex-wrap justify-center gap-x-16 gap-y-24">
+    <div class="flex flex-wrap justify-center gap-x-8 gap-y-12 md:gap-x-16 md:gap-y-24">
       {clients.map((client) => (
-        <div class="flex flex-col items-center justify-center group gap-6 w-full sm:w-[calc(45%-1rem)] lg:w-[calc(22%-1rem)]">
-          <div class="h-20 md:h-28 flex items-center justify-center">
+        /* Cambiamos w-full por w-[40%] para que entren 2 por fila en mobile */
+        <div class="flex flex-col items-center justify-center group gap-4 md:gap-6 w-[40%] sm:w-[calc(45%-1rem)] lg:w-[calc(22%-1rem)]">
+          
+          <div class="h-14 md:h-28 flex items-center justify-center w-full">
             <Image 
               src={client.img} 
               alt={client.name} 
@@ -37,7 +39,7 @@ const clients = [
             />
           </div>
           
-          <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-focus-dark/30 group-hover:text-focus-blue transition-colors duration-500 text-center">
+          <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-focus-dark/30 group-hover:text-focus-blue transition-colors duration-500 text-center">
             {client.name}
           </span>
         </div>
