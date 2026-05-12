@@ -10,27 +10,65 @@ export async function getStaticPaths() {
 }
 
 const { service } = Astro.props;
-const phone = "549343XXXXXXX"; // Número de Thiago
+const phone = "549343466-6821"; 
 ---
 
 <Layout>
-  <main class="py-24 md:py-32 px-6 bg-white min-h-screen text-focus-dark">
-    <div class="max-w-4xl mx-auto">
-      <span class="text-focus-blue font-bold text-[10px] uppercase tracking-widest mb-4 block">Servicio 0{service.id}</span>
-      <h1 class="text-6xl md:text-8xl font-bold tracking-tighter leading-none mb-12">{service.title}</h1>
+  <main class="py-24 md:py-32 px-6 bg-white min-h-screen">
+    <div class="max-w-7xl mx-auto">
       
-      <div class="prose prose-xl text-gray-800 font-light leading-relaxed mb-16">
-        <p>{service.content}</p>
+      <a href="/#servicios" class="inline-flex items-center text-focus-blue font-bold text-[10px] uppercase tracking-widest mb-12 hover:-translate-x-2 transition-transform">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+        </svg>
+        Volver a servicios
+      </a>
+
+      <div class="mb-12">
+        <span class="text-focus-blue font-bold text-[10px] uppercase tracking-widest block mb-4">
+          0{service.id} — Detalle del servicio
+        </span>
+        <h1 class="text-6xl md:text-9xl font-bold text-focus-dark tracking-tighter leading-none uppercase">
+          {service.title}
+        </h1>
       </div>
 
-      <div class="pt-12 border-t border-gray-100">
-        <a 
-          href={`https://wa.me/${phone}?text=${encodeURIComponent(`Hola Focus Lab! Quiero más información sobre el servicio ${service.title}`)}`}
-          target="_blank"
-          class="inline-block bg-focus-dark text-white px-10 py-5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-focus-blue transition-all shadow-lg active:scale-95"
-        >
-          Consultar por WhatsApp
-        </a>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 md:gap-24">
+        
+        <div class="lg:col-span-2 space-y-12">
+          <p class="text-xl md:text-2xl text-gray-600 font-light leading-relaxed">
+            {service.content}
+          </p>
+
+          <div class="p-10 rounded-[2.5rem] bg-gray-50 border border-gray-100 italic text-gray-500 font-light text-lg">
+            Este servicio se adapta a las necesidades reales de cada marca, priorizando resultados medibles y un diseño profesional.
+          </div>
+
+          <div class="pt-4">
+            <a 
+              href={`https://wa.me/${phone}?text=${encodeURIComponent(`Hola Focus Lab! Quiero más información sobre el servicio ${service.title}`)}`}
+              target="_blank"
+              class="inline-block bg-focus-dark text-white px-12 py-5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-focus-blue transition-all shadow-xl active:scale-95"
+            >
+              Consultar por WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="space-y-8">
+          <div class="border-t border-gray-100 pt-8">
+            <span class="text-focus-dark font-bold text-[10px] uppercase tracking-widest block mb-8">Qué incluye</span>
+            <ul class="space-y-4">
+              {service.features.map((feature) => (
+                <li class="flex items-center text-gray-500 text-xs font-bold uppercase tracking-wider">
+                  <span class="w-1.5 h-1.5 bg-focus-blue rounded-full mr-3"></span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
   </main>
