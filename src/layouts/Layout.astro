@@ -1,18 +1,19 @@
 ---
+// src/layouts/Layout.astro
 import { ClientRouter } from 'astro:transitions'; 
 import Navbar from '../components/Navbar.astro';
 import '../styles/global.css';
 
-// 1. Definimos la interfaz de Props para recibir SEO desde cada página
 interface Props {
   title?: string;
   description?: string;
+  canonical?: string;
 }
 
-// 2. Asignamos valores por defecto de la agencia si la página no envía props
 const { 
   title = "Focus Lab - Estrategia Digital", 
-  description = "Agencia de marketing digital en Paraná. Dirección estratégica para marcas líderes enfocada en rendimiento, conversión y escalabilidad." 
+  description = "Agencia de marketing digital en Paraná. Dirección estratégica para marcas líderes.",
+  canonical = "https://www.focuslab.ar/"
 } = Astro.props;
 ---
 
@@ -27,34 +28,35 @@ const {
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
-
+    <link rel="canonical" href={canonical} />
+    
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content="/og-image.png" />
 
     <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonical} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     
     <ClientRouter /> 
+    
+    <slot name="head" />
   </head>
   <body class="bg-focus-bg text-focus-dark font-sans antialiased">
     <Navbar />
     <slot />
     
     <script>
-      // Tu función centralizada para despertar videos se mantiene intacta
       const setupGlobalVideos = () => {
         const videos = document.querySelectorAll('video');
-        
         videos.forEach(video => {
           video.muted = true;
           video.setAttribute('muted', '');
           video.setAttribute('playsinline', '');
-
           const playPromise = video.play();
-
           if (playPromise !== undefined) {
             playPromise.catch(() => {
               const startVideo = () => {
@@ -70,7 +72,6 @@ const {
           }
         });
       };
-
       document.addEventListener('astro:page-load', setupGlobalVideos);
       document.addEventListener('DOMContentLoaded', setupGlobalVideos);
     </script>

@@ -4,11 +4,16 @@ import { Image } from 'astro:assets';
 import thiagoPhoto from '../assets/thiago.jpeg';
 ---
 
-<Layout>
-  <main class="min-h-screen pt-32 pb-16 px-6 bg-focus-white flex items-center antialiased">
+<Layout 
+  title="Sobre Nosotros | Focus Lab" 
+  description="Conocé a Focus Lab, agencia de marketing digital en Paraná liderada por Thiago Colliard, técnico en marketing y estudiante universitario en la FCG-UADER."
+  canonical="https://www.focuslab.ar/nosotros"
+>
+  <main class="min-h-screen pt-32 pb-16 px-6 bg-focus-white antialiased">
     <div class="max-w-6xl mx-auto w-full">
       
-      <div class="flex flex-col md:flex-row gap-12 lg:gap-20 items-center">
+      {/* Fila principal: Foto + Textos de Historia */}
+      <div class="flex flex-col md:flex-row gap-12 lg:gap-20 items-center mb-16">
         
         <div class="w-full md:w-1/3 max-w-[300px] md:max-w-[350px] mx-auto md:mx-0 shrink-0">
           <div class="relative">
@@ -28,27 +33,78 @@ import thiagoPhoto from '../assets/thiago.jpeg';
           
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-focus-dark mb-8 leading-[1.15] tracking-tight">
             Marketing estratégico por <br class="hidden lg:block"/> 
-            <span class="text-focus-blue whitespace-nowrap">Thiago Colliard</span>.
+            <span class="text-focus-blue">Thiago Colliard</span>.
           </h1>
           
-          <div class="text-lg md:text-xl text-gray-600 space-y-6 font-light leading-relaxed">
+          <div class="text-base md:text-lg text-gray-600 space-y-6 leading-relaxed">
             <p>
-              Técnico en Marketing y estudiante de la FCG—UADER. Thiago lidera 
-              <span class="whitespace-nowrap font-semibold text-focus-dark underline decoration-focus-blue/30">Focus Lab</span> 
-              con una premisa clara: profesionalizar la comunicación digital.
+              Todo empezó ayudando a una empresa familiar. De a poco, con trabajo responsable y resultados concretos, el boca en boca hizo lo suyo. Un cliente llevó al otro, y lo que arrancó como freelance fue tomando forma hasta convertirse en Focus Lab: una agencia real, con procesos, con equipo y con foco en resultados.
             </p>
             
             <p>
-              Desde 2024, impulsa marcas en <span class="whitespace-nowrap">Paraná y la región</span>, transformando perfiles sociales en activos de venta reales.
-            </p>
-
-            <p class="italic text-focus-dark/80 border-l-2 border-focus-blue pl-6 py-2 text-base md:text-lg">
-              "Trabajamos junto a creativos y profesionales que aseguran resultados de alto impacto profesional."
+              Desde 2024 trabajamos con marcas de Paraná, ayudándolas a profesionalizar su comunicación digital y convertir sus redes en canales de venta reales.
             </p>
           </div>
         </div>
 
       </div>
+
+      {/* Sección ¿Por qué Focus Lab? */}
+      <div class="border-t border-gray-100 pt-12 mb-16 max-w-4xl">
+        <h2 class="text-2xl font-bold text-focus-dark mb-6">
+          ¿Por qué Focus Lab?
+        </h2>
+        <div class="space-y-6 text-base md:text-lg text-gray-600 leading-relaxed">
+          <p>
+            Cuando contratás Focus Lab, hablás directamente conmigo. Cada proyecto lo llevo de forma personalizada, con la solidez de una formación universitaria en marketing y el respaldo de un equipo de freelance que sumamos según las necesidades de cada cliente.
+          </p>
+          <p class="font-medium text-focus-dark border-l-2 border-focus-blue pl-6 py-1">
+            Soy técnico en Marketing y estudiante de la Licenciatura en la FCG—UADER. Esa combinación de teoría y práctica es lo que le da dirección estratégica real a cada decisión que tomamos.
+          </p>
+        </div>
+      </div>
+
+      {/* Sección Valores */}
+      <div class="border-t border-gray-100 pt-12">
+        <h2 class="text-2xl font-bold text-focus-dark mb-8">
+          Nuestros valores
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <div class="p-6 bg-focus-bg rounded-2xl border border-gray-100/50">
+            <span class="text-focus-blue font-bold text-lg block mb-2">01</span>
+            <h3 class="font-bold text-focus-dark text-base uppercase tracking-wider mb-2">
+              Transparencia
+            </h3>
+            <p class="text-sm text-gray-500 leading-relaxed">
+              Comunicación clara en todo momento. Sabés exactamente en qué estamos trabajando y por qué.
+            </p>
+          </div>
+
+          <div class="p-6 bg-focus-bg rounded-2xl border border-gray-100/50">
+            <span class="text-focus-blue font-bold text-lg block mb-2">02</span>
+            <h3 class="font-bold text-focus-dark text-base uppercase tracking-wider mb-2">
+              Trato cercano
+            </h3>
+            <p class="text-sm text-gray-500 leading-relaxed">
+              No somos una agencia fría. Nos involucramos con tu negocio y construimos una relación de confianza real.
+            </p>
+          </div>
+
+          <div class="p-6 bg-focus-bg rounded-2xl border border-gray-100/50">
+            <span class="text-focus-blue font-bold text-lg block mb-2">03</span>
+            <h3 class="font-bold text-focus-dark text-base uppercase tracking-wider mb-2">
+              Responsabilidad
+            </h3>
+            <p class="text-sm text-gray-500 leading-relaxed">
+              Cumplimos con lo que prometemos. Siempre.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </main>
 </Layout>

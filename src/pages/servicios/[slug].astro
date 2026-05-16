@@ -13,10 +13,15 @@ const { service } = Astro.props;
 const phone = "5493434666821"; 
 ---
 
-<Layout>
-  <main class="py-24 md:py-32 px-6 bg-white min-h-screen">
-    <div class="max-w-7xl mx-auto">
+<Layout 
+  title={service.metaTitle || service.title} 
+  description={service.metaDescription || service.description}
+  canonical={`https://www.focuslab.ar/servicios/${service.slug}`}
+>
+  <main class="py-24 md:py-32 px-6 bg-white min-h-screen antialiased">
+    <div class="max-w-5xl mx-auto">
       
+      {/* Botón Volver */}
       <a href="/#servicios" class="inline-flex items-center text-focus-blue font-bold text-[10px] uppercase tracking-widest mb-12 hover:-translate-x-2 transition-transform">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
@@ -24,38 +29,48 @@ const phone = "5493434666821";
         Volver a servicios
       </a>
 
-      <div class="mb-12">
+      {/* Encabezado Principal */}
+      <div class="mb-16">
         <span class="text-focus-blue font-bold text-[10px] uppercase tracking-widest block mb-4">
           0{service.id} — Detalle del servicio
         </span>
-        <h1 class="text-6xl md:text-9xl font-bold text-focus-dark tracking-tighter leading-none uppercase">
+        <h1 class="text-4xl md:text-7xl font-bold text-focus-dark tracking-tighter leading-none uppercase">
           {service.title}
         </h1>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+      {/* Grid: Introducción y Público Ideal vs Qué Incluye */}
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 mb-20">
         
-        <div class="lg:col-span-2 space-y-12">
-          <p class="text-xl md:text-2xl text-gray-600 font-light leading-relaxed">
+        <div class="lg:col-span-2 space-y-10">
+          <p class="text-lg md:text-xl text-gray-600 leading-relaxed font-light">
             {service.content}
           </p>
 
-          <div class="p-10 rounded-[2.5rem] bg-gray-50 border border-gray-100 italic text-gray-500 font-light text-lg">
-            Este servicio se adapta a las necesidades reales de cada marca, priorizando resultados medibles y un diseño profesional.
-          </div>
+          {/* Sección Para quién es */}
+          {service.idealFor && (
+            <div class="border-t border-gray-100 pt-8">
+              <h2 class="text-xl font-bold text-focus-dark uppercase tracking-wider mb-4">
+                ¿Para quién es este servicio?
+              </h2>
+              <p class="text-base text-gray-500 leading-relaxed font-light">
+                {service.idealFor}
+              </p>
+            </div>
+          )}
         </div>
 
-        <div class="space-y-8">
-          <div class="border-t border-gray-100 pt-8">
-            <span class="text-focus-dark font-bold text-2xl md:text-3xl uppercase tracking-widest block mb-10">
+        {/* Barra Lateral: Qué Incluye */}
+        <div class="space-y-8 lg:border-l lg:border-gray-100 lg:pl-12">
+          <div>
+            <span class="text-focus-dark font-bold text-xl uppercase tracking-wider block mb-6">
               Qué incluye
             </span>
-            
-            <ul class="space-y-6">
-              {service.features.map((feature) => (
-                <li class="flex items-center text-gray-500 text-sm md:text-base font-bold uppercase tracking-wider">
-                  <span class="w-2 h-2 bg-focus-blue rounded-full mr-4"></span>
-                  {feature}
+            <ul class="space-y-4">
+              {service.features?.map((feature) => (
+                <li class="flex items-start text-gray-500 text-xs font-bold uppercase tracking-wider leading-tight">
+                  <span class="w-2 h-2 bg-focus-blue rounded-full mr-3 mt-1 shrink-0"></span>
+                  <span>{feature}</span>
                 </li>
               ))}
             </ul>
@@ -64,11 +79,41 @@ const phone = "5493434666821";
 
       </div>
 
-      <div class="mt-20 pt-10 border-t border-gray-100">
+      {/* Sección Proceso de Trabajo */}
+      {service.process && (
+        <div class="border-t border-gray-100 pt-16 mb-20">
+          <h2 class="text-2xl font-bold text-focus-dark tracking-tight mb-10 text-center md:text-left">
+            Nuestro proceso de trabajo
+          </h2>
+          
+          <div class="space-y-6">
+            {service.process.map((p) => (
+              <div class="flex flex-col md:flex-row gap-4 p-6 md:p-8 bg-focus-bg rounded-2xl border border-gray-50 transition-all duration-300 hover:border-gray-200">
+                <div class="text-focus-blue font-bold text-lg shrink-0">
+                  {p.step} —
+                </div>
+                <div>
+                  <h3 class="font-bold text-focus-dark text-base mb-2">{p.name}</h3>
+                  <p class="text-sm text-gray-500 leading-relaxed font-light">{p.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Botón de Conversión CTA */}
+      <div class="pt-10 border-t border-gray-100 flex flex-col items-center md:items-start gap-4">
+        {service.slug === 'gestion-redes' && (
+          <p class="text-xs text-gray-400 italic max-w-xl text-center md:text-left mb-2">
+            El servicio se adapta a las necesidades de cada cliente. No todos los ítems aplican a todos los proyectos — en la reunión inicial definimos juntos qué incluye tu plan.
+          </p>
+        )}
         <a 
           href={`https://wa.me/${phone}?text=${encodeURIComponent(`Hola! Consulto por el servicio de ${service.title}`)}`}
           target="_blank"
-          class="inline-block bg-focus-dark text-white px-14 py-6 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-focus-blue transition-all"
+          rel="noopener noreferrer"
+          class="inline-block bg-focus-dark text-white px-14 py-5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-focus-blue hover:scale-105 transition-all shadow-lg"
         >
           Consultar por WhatsApp
         </a>

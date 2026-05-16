@@ -3,9 +3,13 @@
 const phone = "5493434666821";
 ---
 
-<section class="min-h-[85vh] pt-28 md:pt-40 pb-10 flex flex-col items-center justify-start text-center bg-white relative overflow-hidden">
+{/* CAMBIO: Mutación de min-h-[85vh] a min-h-screen para cubrir el 100% del viewport. */}
+{/* CAMBIO: Transición de justify-start a justify-center para equilibrar el espacio muerto. */}
+{/* CAMBIO: Reducción del padding superior fijo (pt-24) ya que el centrado dinámico se encarga del balance. */}
+<section class="min-h-screen pt-24 pb-12 flex flex-col items-center justify-center text-center bg-white relative overflow-hidden">
   
-  <div class="max-w-7xl mx-auto px-6 z-10">
+  {/* CAMBIO: Se añade flex y dirección de columna para asegurar que el bloque z-10 responda al centrado vertical. */}
+  <div class="max-w-7xl mx-auto px-6 z-10 flex flex-col items-center justify-center">
     
     <h1 class="text-5xl md:text-7xl font-bold text-focus-dark tracking-tighter leading-tight mb-4">
       Convertimos redes <br class="hidden md:block"/> sociales en <br class="hidden md:block"/>

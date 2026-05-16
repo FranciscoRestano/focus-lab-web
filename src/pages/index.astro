@@ -1,21 +1,48 @@
 ---
+// src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import Clients from '../components/Clients.astro'; 
 import ServicesSection from '../components/ServicesSection.astro';
 import FeaturedPortfolio from '../components/FeaturedPortfolio.astro';
+import Clients from '../components/Clients.astro'; 
+import Testimonials from '../components/Testimonials.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
+
+// Declaración del objeto en el entorno de servidor para evitar conflictos con el HTML
+const schemaMarkup = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Focus Lab",
+  "description": "Agencia de marketing digital en Paraná, Entre Ríos. Gestión de redes sociales, Meta Ads y estrategia de contenido.",
+  "url": "https://www.focuslab.ar",
+  "telephone": "+5493434666821",
+  "email": "focuslab.marketing@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Paraná",
+    "addressRegion": "Entre Ríos",
+    "addressCountry": "AR"
+  },
+  "sameAs": [
+    "https://www.instagram.com/focuslab.marketing/"
+  ]
+};
 ---
 
 <Layout 
-  title="Focus Lab | Agencia de Marketing Digital en Paraná" 
-  description="Dirección estratégica para marcas líderes. Potenciamos tu negocio en Entre Ríos con desarrollo web de alto rendimiento, gestión de pauta digital y optimización de conversión."
+  title="Focus Lab - Agencia de Marketing Digital en Paraná" 
+  description="Agencia de marketing digital en Paraná. Gestión de redes sociales, Meta Ads y estrategia de contenido para negocios locales. Resultados reales, respaldo universitario."
+  canonical="https://www.focuslab.ar/"
 >
+  {/* Inyección segura utilizando directivas nativas de Astro */}
+  <script type="application/ld+json" slot="head" is:inline set:html={JSON.stringify(schemaMarkup)} />
+
   <Hero />
-  <Clients /> 
   <ServicesSection />
   <FeaturedPortfolio />
+  <Clients />
+  <Testimonials />
   <Contact /> 
   <Footer />
 </Layout>
