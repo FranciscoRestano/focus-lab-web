@@ -22,7 +22,8 @@ const videoIndices = Array.from({ length: project.videoCount || 0 }, (_, i) => i
         ← Volver al Portafolio
       </a>
 
-      {project.mediaType === 'image' ? (
+      {/* CASO 1: El proyecto es una Imagen Estática */}
+      {project.mediaType === 'image' && (
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
           <div class="space-y-8">
             <div>
@@ -40,7 +41,10 @@ const videoIndices = Array.from({ length: project.videoCount || 0 }, (_, i) => i
             </div>
           </div>
         </div>
-      ) : project.type === 'reel' ? (
+      )}
+
+      {/* CASO 2: El proyecto es un Video Reel Vertical */}
+      {project.mediaType === 'video' && project.type === 'reel' && (
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
           <div class="space-y-8">
             <div>
@@ -54,13 +58,22 @@ const videoIndices = Array.from({ length: project.videoCount || 0 }, (_, i) => i
 
           <div class="flex justify-center lg:justify-end">
             <div class="w-full max-w-[400px] rounded-[3rem] overflow-hidden border-[8px] border-focus-dark shadow-2xl aspect-[9/16] bg-gray-900">
-              <video autoplay loop muted playsinline preload="auto" class="w-full h-full object-cover pointer-events-none">
-                <source src={`${project.folder}1.webm`} type="video/webm" />
-              </video>
+              <video 
+                src={`${project.folder}1.webm`}
+                autoplay 
+                loop 
+                muted 
+                playsinline 
+                preload="auto" 
+                class="w-full h-full object-cover pointer-events-none"
+              ></video>
             </div>
           </div>
         </div>
-      ) : (
+      )}
+
+      {/* CASO 3: El proyecto es una Grilla de Múltiples Videos (Doble J) */}
+      {project.mediaType === 'video' && project.type !== 'reel' && (
         <div class="space-y-16 md:space-y-24">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
             <div>
@@ -75,9 +88,15 @@ const videoIndices = Array.from({ length: project.videoCount || 0 }, (_, i) => i
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {videoIndices.map((index) => (
               <div class="rounded-[2.5rem] overflow-hidden bg-gray-100 aspect-square relative border border-gray-100 shadow-sm">
-                <video autoplay loop muted playsinline preload="auto" class="w-full h-full object-cover pointer-events-none">
-                  <source src={`${project.folder}${index}.webm`} type="video/webm" />
-                </video>
+                <video 
+                  src={`${project.folder}${index}.webm`}
+                  autoplay 
+                  loop 
+                  muted 
+                  playsinline 
+                  preload="auto" 
+                  class="w-full h-full object-cover pointer-events-none"
+                ></video>
               </div>
             ))}
           </div>
@@ -96,6 +115,8 @@ const videoIndices = Array.from({ length: project.videoCount || 0 }, (_, i) => i
       video.muted = true;
       video.setAttribute('muted', '');
       video.setAttribute('playsinline', '');
+
+      video.load();
 
       const playVideo = () => {
         const attempt = video.play();
@@ -116,10 +137,6 @@ const videoIndices = Array.from({ length: project.videoCount || 0 }, (_, i) => i
         playVideo();
       } else {
         video.addEventListener('canplay', playVideo, { once: true });
-      }
-      
-      if (video.networkState === 3 || video.currentSrc === "") {
-        video.load();
       }
     });
   };
