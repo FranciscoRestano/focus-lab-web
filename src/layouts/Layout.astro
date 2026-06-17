@@ -50,30 +50,47 @@ const {
     <slot />
     
     <script>
-      const setupGlobalVideos = () => {
+      // Lógica centralizada para evitar colisiones en SPA
+      const initGlobalVideos = () => {
         const videos = document.querySelectorAll('video');
+        
         videos.forEach(video => {
+          // Aseguramos propiedades críticas para evitar bloqueos del navegador
           video.muted = true;
-          video.setAttribute('muted', '');
-          video.setAttribute('playsinline', '');
+          video.defaultMuted = true;
+          video.playsInline = true;
+          video.loop = true;
+          video.autoplay = true;
+
+          // Forzamos la carga del buffer
+          if (video.readyState === 0) {
+            video.load();
+          }
+
           const playPromise = video.play();
+          
           if (playPromise !== undefined) {
             playPromise.catch(() => {
-              const startVideo = () => {
+              // Si el navegador bloquea el autoplay por políticas de interacción,
+              // atamos la recuperación a eventos globales, no al video individual.
+              const recoverPlay = () => {
                 video.play();
-                ['touchstart', 'scroll', 'mousemove'].forEach(ev => 
-                  window.removeEventListener(ev, startVideo)
-                );
+                document.removeEventListener('click', recoverPlay);
+                document.removeEventListener('scroll', recoverPlay);
+                document.removeEventListener('touchstart', recoverPlay);
               };
-              ['touchstart', 'scroll', 'mousemove'].forEach(ev => 
-                window.addEventListener(ev, startVideo, { once: true })
-              );
+              
+              document.addEventListener('click', recoverPlay, { once: true });
+              document.addEventListener('scroll', recoverPlay, { once: true });
+              document.addEventListener('touchstart', recoverPlay, { once: true });
             });
           }
         });
       };
-      document.addEventListener('astro:page-load', setupGlobalVideos);
-      document.addEventListener('DOMContentLoaded', setupGlobalVideos);
+
+      // astro:page-load se dispara en la carga inicial Y en cada View Transition.
+      // Ya no necesitamos DOMContentLoaded, evitamos doble ejecución.
+      document.addEventListener('astro:page-load', initGlobalVideos);
     </script>
   </body>
 </html>
