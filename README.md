@@ -2,7 +2,7 @@
 
 Sitio web corporativo de **Focus Lab**, agencia de marketing digital con sede en **Parana, Entre Rios, Argentina**.
 
-[www.focuslab.com.ar](https://www.focuslab.com.ar)
+[www.focuslab.com.ar](https://www.focuslab.ar)
 
 ---
 
